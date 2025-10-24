@@ -1,6 +1,7 @@
 import { BugTicket } from '../models/BugTicket';
 
-export const mockTickets: BugTicket[] = [
+// Seed a few realistic tickets and then generate additional ones to reach 100
+const seed: BugTicket[] = [
     {
         id: 'BUG-001',
         title: 'Login page not responsive on mobile devices',
@@ -52,3 +53,67 @@ export const mockTickets: BugTicket[] = [
         updated: new Date('2025-10-23'),
     },
 ];
+
+const statuses: BugTicket['status'][] = ['open', 'in-progress', 'closed'];
+const priorities: BugTicket['priority'][] = ['low', 'medium', 'high', 'critical'];
+const assignees = [
+    'Sarah Chen',
+    'John Smith',
+    'Mike Johnson',
+    'Emily Davis',
+    'Alex Wong',
+    'Priya Patel',
+    'Carlos Ruiz',
+    'Anna Müller',
+    'Chen Wei',
+    'Fatima Al-Sayed',
+];
+
+const lorem = [
+    'Unexpected exception thrown when saving user settings.',
+    'UI freezes for several seconds after clicking the Save button.',
+    'Error message lacks useful information for debugging.',
+    'Pagination controls are non-functional on filtered views.',
+    'Translations missing for several UI strings in French locale.',
+    'File upload fails silently when file size is just under the limit.',
+    'Search results return duplicates for recent queries.',
+    'Notifications are not marked as read after opening them.',
+    'Charts show incorrect totals when filters are applied.',
+    'Permissions check allows unauthenticated access to endpoint.',
+];
+
+function randomInt(min: number, max: number) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function randomDateWithinDays(daysBack: number) {
+    const now = Date.now();
+    const delta = randomInt(0, daysBack) * 24 * 60 * 60 * 1000;
+    return new Date(now - delta);
+}
+
+const generated: BugTicket[] = [];
+for (let i = seed.length + 1; i <= 100; i++) {
+    const id = `BUG-${String(i).padStart(3, '0')}`;
+    const title = `Auto-generated: ${lorem[(i - 1) % lorem.length]}`;
+    const description = lorem[(i - 1) % lorem.length] + ' (auto-generated ticket)';
+    const status = statuses[i % statuses.length];
+    const priority = priorities[i % priorities.length];
+    const assignee = assignees[i % assignees.length];
+    const created = randomDateWithinDays(30);
+    // updated is after created by up to 5 days
+    const updated = new Date(created.getTime() + randomInt(0, 5) * 24 * 60 * 60 * 1000);
+
+    generated.push({
+        id,
+        title,
+        description,
+        status,
+        priority,
+        assignee,
+        created,
+        updated,
+    });
+}
+
+export const mockTickets: BugTicket[] = [...seed, ...generated];
