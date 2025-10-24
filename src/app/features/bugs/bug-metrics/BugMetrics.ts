@@ -1,10 +1,10 @@
 import { Component, Signal, signal } from '@angular/core';
-import { AppBarChart } from '../../components/chart/bar/BarChart';
-import { AppPolarChart } from '../../components/chart/polar/PolarChart';
-import { TicketService } from '../bug-tickets/services/ticket.service';
-import { TicketStore } from '../../services/ticket-store.service';
-import { BugTicket } from './models/BugTicket';
+import { AppBarChart } from '../../../components/chart/bar/BarChart';
+import { AppPolarChart } from '../../../components/chart/polar/PolarChart';
+import { TicketStore } from '../../../services/ticket-store.service';
+import { BugTicket } from '../models/BugTicket';
 import { ProgressSpinner } from 'primeng/progressspinner';
+import { TicketService } from '../services/ticket.service';
 
 @Component({
     selector: 'app-bug-metrics',

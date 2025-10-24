@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
-import { AppBugMetrics } from './features/bug-metrics/BugMetrics';
-import { AppBugTickets } from './features/bug-tickets/BugTickets';
+import { AppBugMetrics } from './features/bugs/bug-metrics/BugMetrics';
+import { AppBugTickets } from './features/bugs/bug-tickets/BugTickets';
 
 @Component({
     selector: 'app-root',
