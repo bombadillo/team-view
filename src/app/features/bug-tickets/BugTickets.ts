@@ -1,6 +1,8 @@
 import { Component, signal } from '@angular/core';
 import { TicketService } from './services/ticket.service';
+import { TicketStore } from '../../services/ticket-store.service';
 import { BugTicket } from './models/BugTicket';
+import { Signal } from '@angular/core';
 import { ProgressSpinner } from 'primeng/progressspinner';
 
 @Component({
@@ -9,15 +11,17 @@ import { ProgressSpinner } from 'primeng/progressspinner';
     imports: [ProgressSpinner],
 })
 export class AppBugTickets {
-    protected bugTickets = signal<BugTicket[]>([]);
+    protected bugTickets!: Signal<BugTicket[]>;
 
     loading = signal<boolean>(true);
 
-    constructor(private ticketService: TicketService) {
-        // fake async load using the service
-        this.ticketService.fetchTickets().then((tickets) => {
+    constructor(private ticketService: TicketService, private ticketStore: TicketStore) {
+        // bind to the central store's tickets signal
+        this.bugTickets = this.ticketStore.tickets;
+
+        // fake async load using the service; TicketService will populate the store
+        this.ticketService.fetchTickets().then(() => {
             this.loading.set(false);
-            this.bugTickets.set(tickets);
         });
     }
 }
