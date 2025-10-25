@@ -23,6 +23,8 @@ export class AppBugMetrics {
 
     bugMetrics: Signal<AppMetricMeta> = computed(() => this.getBugsPerMonth());
 
+    bugsPerTeamMetrics: Signal<AppMetricMeta> = computed(() => this.getBugsPerTeam());
+
     constructor(private ticketService: TicketService, private ticketStore: TicketStore) {
         // bind to the central store's tickets signal
         this.bugTickets = this.ticketStore.tickets;
@@ -56,6 +58,32 @@ export class AppBugMetrics {
                 ).padStart(2, '0')}`;
 
                 return yearMonth === label;
+            });
+
+            return bugTickets.length;
+        });
+
+        console.log(data);
+
+        return { labels, data } as AppMetricMeta;
+    }
+
+    getBugsPerTeam(): AppMetricMeta {
+        const labels: string[] = [];
+
+        this.bugTickets().map((bugTicket) => {
+            const team = bugTicket.team;
+
+            if (!labels.includes(team)) labels.push(team);
+        });
+        labels.sort((a, b) => +a - +b);
+        console.log(labels);
+
+        const data: number[] = labels.map((label) => {
+            console.log(label);
+
+            const bugTickets = this.bugTickets().filter((bugTicket) => {
+                return bugTicket.team === label;
             });
 
             return bugTickets.length;

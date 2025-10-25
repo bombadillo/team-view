@@ -1,9 +1,9 @@
 import { Component, signal } from '@angular/core';
 import { TicketStore } from '../../../services/ticket-store.service';
-import { BugTicket } from './models/BugTicket';
 import { Signal } from '@angular/core';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { TicketService } from '../services/ticket.service';
+import { BugTicket } from '../models/BugTicket';
 
 @Component({
     selector: 'app-bug-tickets',

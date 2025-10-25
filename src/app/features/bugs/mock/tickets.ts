@@ -9,6 +9,7 @@ const seed: BugTicket[] = [
         status: 'open',
         priority: 'high',
         assignee: 'Sarah Chen',
+        team: 'Frontend',
         created: new Date('2025-10-22'),
         updated: new Date('2025-10-23'),
     },
@@ -19,6 +20,7 @@ const seed: BugTicket[] = [
         status: 'in-progress',
         priority: 'critical',
         assignee: 'John Smith',
+        team: 'Backend',
         created: new Date('2025-10-21'),
         updated: new Date('2025-10-24'),
     },
@@ -29,6 +31,7 @@ const seed: BugTicket[] = [
         status: 'closed',
         priority: 'medium',
         assignee: 'Mike Johnson',
+        team: 'API',
         created: new Date('2025-10-20'),
         updated: new Date('2025-10-22'),
     },
@@ -39,6 +42,7 @@ const seed: BugTicket[] = [
         status: 'open',
         priority: 'high',
         assignee: 'Emily Davis',
+        team: 'API',
         created: new Date('2025-10-23'),
         updated: new Date('2025-10-24'),
     },
@@ -49,6 +53,7 @@ const seed: BugTicket[] = [
         status: 'in-progress',
         priority: 'low',
         assignee: 'Alex Wong',
+        team: 'UX',
         created: new Date('2025-10-22'),
         updated: new Date('2025-10-23'),
     },
@@ -68,6 +73,7 @@ const assignees = [
     'Chen Wei',
     'Fatima Al-Sayed',
 ];
+const teams = ['Frontend', 'Backend', 'API', 'UX', 'QA'];
 
 const lorem = [
     'Unexpected exception thrown when saving user settings.',
@@ -100,8 +106,8 @@ for (let i = seed.length + 1; i <= 100; i++) {
     const status = statuses[i % statuses.length];
     const priority = priorities[i % priorities.length];
     const assignee = assignees[i % assignees.length];
+    const team = teams[i % teams.length];
     const created = randomDateWithinDays(100);
-    // updated is after created by up to 5 days
     const updated = new Date(created.getTime() + randomInt(0, 5) * 24 * 60 * 60 * 1000);
 
     generated.push({
@@ -111,6 +117,7 @@ for (let i = seed.length + 1; i <= 100; i++) {
         status,
         priority,
         assignee,
+        team,
         created,
         updated,
     });

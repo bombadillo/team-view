@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef, effect } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, effect, input } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 
 @Component({
@@ -7,22 +7,21 @@ import { ChartModule } from 'primeng/chart';
     standalone: true,
     imports: [ChartModule],
 })
-export class AppPolarChart implements OnInit {
+export class AppPolarChart {
+    metrics = input.required<AppMetricMeta>();
+
     data: any;
 
     options: any;
 
-    constructor(private cd: ChangeDetectorRef) {}
-
-    themeEffect = effect(() => {
-        this.initChart();
-    });
-
-    ngOnInit() {
-        this.initChart();
+    constructor(private cd: ChangeDetectorRef) {
+        effect(() => {
+            const metrics = this.metrics();
+            if (metrics) this.initChart(metrics);
+        });
     }
 
-    initChart() {
+    initChart(metrics: AppMetricMeta) {
         const documentStyle = getComputedStyle(document.documentElement);
         const textColor = documentStyle.getPropertyValue('--p-text-color');
         const surfaceBorder = documentStyle.getPropertyValue('--p-content-border-color');
@@ -30,7 +29,7 @@ export class AppPolarChart implements OnInit {
         this.data = {
             datasets: [
                 {
-                    data: [11, 16, 7, 3, 14],
+                    data: metrics.data,
                     backgroundColor: [
                         documentStyle.getPropertyValue('--p-pink-500'),
                         documentStyle.getPropertyValue('--p-gray-500'),
@@ -41,7 +40,7 @@ export class AppPolarChart implements OnInit {
                     label: 'My dataset',
                 },
             ],
-            labels: ['Pink', 'Gray', 'Orange', 'Purple', 'Cyan'],
+            labels: metrics.labels,
         };
 
         this.options = {

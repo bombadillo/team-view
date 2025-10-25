@@ -11,6 +11,6 @@
 <div>
     <h1>Bug count: {{ bugCount() }}</h1>
     <p-button (click)="refresh()" label="Refresh" />
-    <app-bar-chart [metrics]="bugMetrics()" /> <app-polar-chart />
+    <app-bar-chart [metrics]="bugMetrics()" /> <app-polar-chart [metrics]="bugsPerTeamMetrics()" />
 </div>
 }

@@ -5,6 +5,7 @@ export interface BugTicket {
     status: 'open' | 'in-progress' | 'closed';
     priority: 'low' | 'medium' | 'high' | 'critical';
     assignee: string;
+    team: string;
     created: Date;
     updated: Date;
 }
