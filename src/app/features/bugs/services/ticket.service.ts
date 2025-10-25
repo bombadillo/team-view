@@ -11,7 +11,7 @@ export class TicketService {
      */
     constructor(private store: TicketStore) {}
 
-    fetchTickets(): Promise<boolean> {
+    fetchTickets(force: boolean = false): Promise<boolean> {
         if (this.sendingRequest) {
             console.log('delaying request as existing one open');
 
@@ -24,8 +24,9 @@ export class TicketService {
 
         this.sendingRequest = true;
 
-        if (this.store.tickets().length) {
+        if (this.store.tickets().length && !force) {
             console.log('using cached tickets');
+            this.sendingRequest = false;
             return new Promise((resolve) => resolve(true));
         }
 
@@ -39,7 +40,11 @@ export class TicketService {
         return new Promise((resolve) => {
             setTimeout(() => {
                 // populate central store when tickets are "loaded"
-                this.store.setTickets(mockTickets);
+                console.log(mockTickets);
+                const randomCount = Math.floor(Math.random() * (mockTickets.length - 40 + 1)) + 40;
+                const shuffled = [...mockTickets].sort(() => Math.random() - 0.5);
+                const randomSubset = shuffled.slice(0, randomCount);
+                this.store.setTickets(randomSubset);
                 this.sendingRequest = false;
                 resolve(true);
             }, delay);

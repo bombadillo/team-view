@@ -100,7 +100,7 @@ for (let i = seed.length + 1; i <= 100; i++) {
     const status = statuses[i % statuses.length];
     const priority = priorities[i % priorities.length];
     const assignee = assignees[i % assignees.length];
-    const created = randomDateWithinDays(30);
+    const created = randomDateWithinDays(100);
     // updated is after created by up to 5 days
     const updated = new Date(created.getTime() + randomInt(0, 5) * 24 * 60 * 60 * 1000);
 

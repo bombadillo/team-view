@@ -8,5 +8,9 @@
     />
 </div>
 } @else {
-<app-bar-chart /> <app-polar-chart />
+<div>
+    <h1>Bug count: {{ bugCount() }}</h1>
+    <p-button (click)="refresh()" label="Refresh" />
+    <app-bar-chart [metrics]="bugMetrics()" /> <app-polar-chart />
+</div>
 }
