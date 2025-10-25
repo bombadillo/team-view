@@ -37,7 +37,6 @@ export class AppPolarChart {
                         documentStyle.getPropertyValue('--p-purple-500'),
                         documentStyle.getPropertyValue('--p-cyan-500'),
                     ],
-                    label: 'My dataset',
                 },
             ],
             labels: metrics.labels,
@@ -49,6 +48,7 @@ export class AppPolarChart {
                     labels: {
                         color: '#000000',
                     },
+                    onClick: () => {},
                 },
             },
             scales: {
@@ -58,6 +58,7 @@ export class AppPolarChart {
                     },
                 },
             },
+            circular: false,
         };
         this.cd.markForCheck();
     }

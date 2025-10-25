@@ -5,12 +5,11 @@ import { TicketStore } from '../../../services/ticket-store.service';
 import { BugTicket } from '../models/BugTicket';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { TicketService } from '../services/ticket.service';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
     selector: 'app-bug-metrics',
     templateUrl: './bug-metrics.html',
-    imports: [AppBarChart, AppPolarChart, ProgressSpinner, ButtonModule],
+    imports: [AppBarChart, AppPolarChart, ProgressSpinner],
 })
 export class AppBugMetrics {
     protected bugTickets!: Signal<BugTicket[]>;
@@ -92,13 +91,5 @@ export class AppBugMetrics {
         console.log(data);
 
         return { labels, data } as AppMetricMeta;
-    }
-
-    refresh() {
-        console.log('fetch');
-        this.ticketService.fetchTickets(true).then(() => {
-            console.log('fetched bugs for metrics');
-            this.loading.set(false);
-        });
     }
 }

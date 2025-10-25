@@ -2,12 +2,13 @@ import { Component, signal } from '@angular/core';
 import { ChartModule } from 'primeng/chart';
 import { AppBugMetrics } from './features/bugs/bug-metrics/BugMetrics';
 import { AppBugTickets } from './features/bugs/bug-tickets/BugTickets';
+import { AppMenu } from './components/chart/menu/Menu';
 
 @Component({
     selector: 'app-root',
     templateUrl: './app.html',
     styleUrl: './app.scss',
-    imports: [ChartModule, AppBugMetrics, AppBugTickets],
+    imports: [ChartModule, AppBugMetrics, AppBugTickets, AppMenu],
 })
 export class App {
     protected readonly title = signal('team-view');
