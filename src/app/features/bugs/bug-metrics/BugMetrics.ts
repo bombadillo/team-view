@@ -1,7 +1,7 @@
 import { Component, computed, Signal, signal } from '@angular/core';
 import { AppBarChart } from '../../../components/chart/bar/BarChart';
 import { AppPolarChart } from '../../../components/chart/polar/PolarChart';
-import { TicketStore } from '../../../services/ticket-store.service';
+import { TicketStore } from '../services/ticket-store.service';
 import { BugTicket } from '../models/BugTicket';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { TicketService } from '../services/ticket.service';
@@ -46,10 +46,8 @@ export class AppBugMetrics {
             if (!labels.includes(yearMonth)) labels.push(yearMonth);
         });
         labels.sort((a, b) => +a - +b);
-        console.log(labels);
 
         const data: number[] = labels.map((label) => {
-            console.log(label);
 
             const bugTickets = this.bugTickets().filter((bugTicket) => {
                 const yearMonth = `${bugTicket.created.getFullYear()}${String(
@@ -61,8 +59,6 @@ export class AppBugMetrics {
 
             return bugTickets.length;
         });
-
-        console.log(data);
 
         return { labels, data } as AppMetricMeta;
     }
@@ -76,10 +72,8 @@ export class AppBugMetrics {
             if (!labels.includes(team)) labels.push(team);
         });
         labels.sort((a, b) => +a - +b);
-        console.log(labels);
 
         const data: number[] = labels.map((label) => {
-            console.log(label);
 
             const bugTickets = this.bugTickets().filter((bugTicket) => {
                 return bugTicket.team === label;
@@ -88,7 +82,6 @@ export class AppBugMetrics {
             return bugTickets.length;
         });
 
-        console.log(data);
 
         return { labels, data } as AppMetricMeta;
     }

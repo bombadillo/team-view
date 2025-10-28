@@ -19,8 +19,6 @@ export class AppBarChart {
     platformId = inject(PLATFORM_ID);
 
     constructor(private cd: ChangeDetectorRef) {
-        console.log(this.metrics);
-
         effect(() => {
             const metrics = this.metrics();
             if (metrics) this.initChart(metrics);

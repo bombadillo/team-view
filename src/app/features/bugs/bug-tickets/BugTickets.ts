@@ -1,5 +1,5 @@
 import { Component, signal } from '@angular/core';
-import { TicketStore } from '../../../services/ticket-store.service';
+import { TicketStore } from '../services/ticket-store.service';
 import { Signal } from '@angular/core';
 import { ProgressSpinner } from 'primeng/progressspinner';
 import { TicketService } from '../services/ticket.service';

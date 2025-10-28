@@ -6,7 +6,7 @@ const seed: BugTicket[] = [
         id: 'BUG-001',
         title: 'Login page not responsive on mobile devices',
         description: 'The login form elements overlap on screens smaller than 375px width',
-        status: 'open',
+        status: 'New',
         priority: 'high',
         assignee: 'Sarah Chen',
         team: 'Frontend',
@@ -17,7 +17,7 @@ const seed: BugTicket[] = [
         id: 'BUG-002',
         title: 'Memory leak in dashboard component',
         description: 'Memory usage increases significantly after switching between dashboard tabs',
-        status: 'in-progress',
+        status: 'Committed',
         priority: 'critical',
         assignee: 'John Smith',
         team: 'Backend',
@@ -28,7 +28,7 @@ const seed: BugTicket[] = [
         id: 'BUG-003',
         title: 'Incorrect date format in export',
         description: 'CSV exports show dates in US format instead of ISO format',
-        status: 'closed',
+        status: 'Done',
         priority: 'medium',
         assignee: 'Mike Johnson',
         team: 'API',
@@ -39,7 +39,7 @@ const seed: BugTicket[] = [
         id: 'BUG-004',
         title: 'API timeout on large datasets',
         description: 'Server returns 504 when fetching more than 1000 records',
-        status: 'open',
+        status: 'New',
         priority: 'high',
         assignee: 'Emily Davis',
         team: 'API',
@@ -50,7 +50,7 @@ const seed: BugTicket[] = [
         id: 'BUG-005',
         title: 'Dark mode color contrast issues',
         description: 'Several UI elements have insufficient contrast ratio in dark mode',
-        status: 'in-progress',
+        status: 'Committed',
         priority: 'low',
         assignee: 'Alex Wong',
         team: 'UX',
@@ -59,7 +59,15 @@ const seed: BugTicket[] = [
     },
 ];
 
-const statuses: BugTicket['status'][] = ['open', 'in-progress', 'closed'];
+const statuses: BugTicket['status'][] = [
+    'Committed',
+    'Approved',
+    'New',
+    'Done',
+    'InUAT',
+    'Removed',
+    'InTesting',
+];
 const priorities: BugTicket['priority'][] = ['low', 'medium', 'high', 'critical'];
 const assignees = [
     'Sarah Chen',
