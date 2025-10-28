@@ -1,5 +1,5 @@
 import { Injectable, signal, Signal } from '@angular/core';
-import { BugTicket } from '../features/bugs/models/BugTicket';
+import { BugTicket } from '../models/BugTicket';
 
 @Injectable({ providedIn: 'root' })
 export class TicketStore {
