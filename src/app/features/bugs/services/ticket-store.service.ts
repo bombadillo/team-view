@@ -10,7 +10,11 @@ export class TicketStore {
     readonly tickets: Signal<BugTicket[]> = this._tickets;
 
     setTickets(tickets: BugTicket[]) {
-        this._tickets.set(tickets);
+        this.clear()
+        Promise.resolve().then(() => {        // step 2: defer to next microtask
+            this._tickets.set(tickets);
+
+  });
     }
 
     addTicket(ticket: BugTicket) {

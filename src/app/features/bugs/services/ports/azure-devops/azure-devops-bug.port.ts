@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BugPort } from './bug.port';
+import { Inject, Injectable } from '@angular/core';
+import { BugPort } from '../bug.port';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { AzureDevOpsWorkItem } from './AzureDevOpsWorkItem';
@@ -10,25 +10,28 @@ import { BugTicket } from '../../../models/BugTicket';
 @Injectable({ providedIn: 'root' })
 export class AzureDevopsBugPort implements BugPort {
     // Implements BugPort
-    constructor(private http: HttpClient, private azureDevOpsTeamsPort: AzureDeveopsTeamsPort) {}
+    constructor(
+        private http: HttpClient,
+        private azureDevOpsTeamsPort: AzureDeveopsTeamsPort,
+        @Inject('DEVOPS_CONFIG') private devopsConfig: any
+    ) {}
 
-    async getBugs(): Promise<BugTicket[]> {
+    async getBugs(force: boolean = false): Promise<BugTicket[]> {
         const cachedBugs = localStorage.getItem('devopsBugResponse');
-        if (cachedBugs) {
+        if (cachedBugs && !force) {
             console.log('returning cached bugs');
 
-            return this.mapResponse(cachedBugs);
+            return this.mapResponse(JSON.parse(cachedBugs));
         }
 
         const endpoint =
-            'https://analytics.dev.azure.com/{org}/{projectId}/_odata/v3.0-preview/WorkItems?' +
+            `https://analytics.dev.azure.com/${this.devopsConfig.org}/${this.devopsConfig.project}/_odata/v3.0-preview/WorkItems?` +
             '$select=WorkItemId,Title,WorkItemType,State,FoundIn,CreatedDate,AreaSK,CreatedDateSK' +
             "&$filter=WorkItemType eq 'Bug' and CreatedDateSK gt 20250101" +
             '&$orderby=CreatedDate desc' +
             '&$top=1000';
         const username = 'basic';
-        const password =
-            '';
+        const password = this.devopsConfig.pat;
         const authHeader = 'Basic ' + btoa(`${username}:${password}`);
         const response: AzureDevOpsODataResponse = (await firstValueFrom(
             this.http.get(endpoint, {
@@ -36,23 +39,15 @@ export class AzureDevopsBugPort implements BugPort {
             })
         )) as AzureDevOpsODataResponse;
 
-        // const bugTickets: BugTicket[] = response.
-
-        console.log(response);
-
         localStorage.setItem('devopsBugResponse', JSON.stringify(response.value));
 
-        return [] as BugTicket[];
+        return this.mapResponse(response.value);
     }
 
-    private async mapResponse(serverResponse: string): Promise<BugTicket[]> {
-        const bugsParsed: AzureDevOpsWorkItem[] = JSON.parse(serverResponse);
-        console.log(bugsParsed);
-
+    private async mapResponse(workItems: AzureDevOpsWorkItem[]): Promise<BugTicket[]> {
         const teams = await this.azureDevOpsTeamsPort.getTeams();
-        console.log(teams);
 
-        const bugTickets = bugsParsed
+        const bugTickets = workItems
             .filter((azureBugTicket) => azureBugTicket.State !== 'Removed')
             .map((azureBugTicket) => {
                 return {
@@ -64,9 +59,6 @@ export class AzureDevopsBugPort implements BugPort {
                 } as BugTicket;
             });
 
-        console.log(bugTickets);
-
         return bugTickets;
     }
 }
- 

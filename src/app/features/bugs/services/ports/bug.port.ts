@@ -1,4 +1,4 @@
-import { BugTicket } from "../../../models/BugTicket";
+import { BugTicket } from "../../models/BugTicket";
 
 export interface BugPort {
     getBugs(): Promise<BugTicket[]>;

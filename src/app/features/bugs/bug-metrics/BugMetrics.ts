@@ -25,7 +25,6 @@ export class AppBugMetrics {
     bugsPerTeamMetrics: Signal<AppMetricMeta> = computed(() => this.getBugsPerTeam());
 
     constructor(private ticketService: TicketService, private ticketStore: TicketStore) {
-        // bind to the central store's tickets signal
         this.bugTickets = this.ticketStore.tickets;
 
         this.ticketService.fetchTickets().then(() => {

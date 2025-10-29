@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { AzureDevOpsODataResponse } from './AzureDevOpsODataResponse';
 import { firstValueFrom } from 'rxjs';
 import { Team } from '../../../../teams/models/Team';
@@ -9,7 +9,7 @@ import { AzureDevopsTeam } from './AzureDevOpsTeam';
     providedIn: 'root',
 })
 export class AzureDeveopsTeamsPort {
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, @Inject('DEVOPS_CONFIG') private devopsConfig: any) {}
 
     async getTeams() {
         const cachedTeams = localStorage.getItem('devopsTeamResponse');
@@ -20,10 +20,10 @@ export class AzureDeveopsTeamsPort {
         }
 
         const endpoint =
-            'https://analytics.dev.azure.com/{org}/{projectId}/_odata/v3.0-preview/Areas';
+            `https://analytics.dev.azure.com/${this.devopsConfig.org}/${this.devopsConfig.project}/_odata/v3.0-preview/Areas`;
         const username = 'basic';
         const password =
-            '';
+            this.devopsConfig.pat;
         const authHeader = 'Basic ' + btoa(`${username}:${password}`);
 
         const response: AzureDevOpsODataResponse = (await firstValueFrom(
@@ -39,7 +39,6 @@ export class AzureDeveopsTeamsPort {
 
     private mapResponse(serverResponse: string) {
         const cachedTeams: AzureDevopsTeam[] = JSON.parse(serverResponse);
-        console.log(cachedTeams);
 
         const teams = cachedTeams.map((azureTeam) => {
             return {
@@ -48,7 +47,6 @@ export class AzureDeveopsTeamsPort {
             } as Team;
         });
 
-        console.log(teams);
 
         return teams;
     }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AzureDevopsBugPort } from './azure-devops-bug.port';
+import { AzureDevopsBugPort } from './azure-devops/azure-devops-bug.port';
 
 @Injectable({ providedIn: 'root' })
 export class BugPortFactoryService {
@@ -9,7 +9,7 @@ export class BugPortFactoryService {
         localStorage.setItem('bugSourcePort', 'AzureDevOps')
         const portSource = localStorage.getItem('bugSourcePort');
 
-        console.log('portsource 23', portSource)
+        console.log('portsource', portSource)
 
         if (!portSource) {
             throw 'No bug port source found';

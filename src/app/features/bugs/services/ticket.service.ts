@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { mockTickets } from '../mock/tickets';
 import { TicketStore } from './ticket-store.service';
-import { BugPortFactoryService } from './ports/azure-devops/bug-port-factory.service';
+import { BugPortFactoryService } from './ports/bug-port-factory.service';
 
 @Injectable({ providedIn: 'root' })
 export class TicketService {
@@ -10,7 +10,7 @@ export class TicketService {
     /**
      * Fake fetch that resolves the mockTickets after an optional delay (ms).
      */
-    constructor(private store: TicketStore, private bugPortFactory: BugPortFactoryService) {}
+    constructor(private store: TicketStore, private bugPortFactory: BugPortFactoryService, @Inject('MOCK_DATA') private mockData: boolean) {}
 
     async fetchTickets(force: boolean = false): Promise<boolean> {
         if (this.sendingRequest) {
@@ -23,16 +23,8 @@ export class TicketService {
             });
         }
 
-        if (this.store.tickets().length && !force) {
-            console.log('using cached tickets');
-            return new Promise((resolve) => resolve(true));
-        }
-
-        console.log('fetching bugs from server');
-
-        const useMockData = true;
-
-        if (useMockData) {
+        if (this.mockData) {
+            console.log('using mock data')
             // random delay between 300ms and 2000ms to better mimic network latency
             const min = 300;
             const max = 2000;
@@ -54,7 +46,7 @@ export class TicketService {
         
 
         const bugPort = await this.bugPortFactory.getPort();
-        const bugTickets = await bugPort.getBugs();
+        const bugTickets = await bugPort.getBugs(force);
 
         this.store.setTickets(bugTickets);
         this.sendingRequest = false;

@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import { mockPullRequests } from '../mock/pull-requests';
 import { PullRequestStore } from './pull-request-store.service';
+import { PullRequestPortFactoryService } from './ports/pull-request-port-factory.service';
 
 @Injectable({ providedIn: 'root' })
 export class PullRequestService {
-    constructor(private store: PullRequestStore) {}
+    constructor(private store: PullRequestStore, @Inject('MOCK_DATA') private mockData: boolean, private pullRequestPortFactory: PullRequestPortFactoryService) {}
 
     sendingRequest: boolean = false;
 
@@ -26,9 +27,7 @@ export class PullRequestService {
 
         console.log('fetching pull requests from server');
 
-        const useMockData = true;
-
-        if (useMockData) {
+        if (this.mockData) {
             // random delay between 300ms and 2000ms to better mimic network latency
             const min = 300;
             const max = 2000;
@@ -48,11 +47,11 @@ export class PullRequestService {
             });
         }
 
-        // const bugPort = await this.bugPortFactory.getPort();
-        // const bugTickets = await bugPort.getBugs();
+        const pullRequestPort = await this.pullRequestPortFactory.getPort();
+        const pullRequestTickets = await pullRequestPort.getPullRequests();
 
-        // this.store.setTickets(bugTickets);
-        // this.sendingRequest = false;
+        this.store.setPullRequests(pullRequestTickets);
+        this.sendingRequest = false;
 
         return true;
     }

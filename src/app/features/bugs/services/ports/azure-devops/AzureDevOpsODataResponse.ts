@@ -1,3 +1,5 @@
+import { AzureDevOpsWorkItem } from "./AzureDevOpsWorkItem";
+
 export interface AzureDevOpsODataResponse {
-    value: any
+    value: AzureDevOpsWorkItem[]
 }
