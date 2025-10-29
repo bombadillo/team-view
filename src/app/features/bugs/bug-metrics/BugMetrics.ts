@@ -28,7 +28,6 @@ export class AppBugMetrics {
         // bind to the central store's tickets signal
         this.bugTickets = this.ticketStore.tickets;
 
-        // fake async load using the service; TicketService will populate the store
         this.ticketService.fetchTickets().then(() => {
             console.log('fetched bugs for metrics');
             this.loading.set(false);

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { mockTickets } from '../mock/tickets';
 import { TicketStore } from './ticket-store.service';
-import { BugPortFactoryService } from './ports/bug-port-factory.service';
+import { BugPortFactoryService } from './ports/azure-devops/bug-port-factory.service';
 
 @Injectable({ providedIn: 'root' })
 export class TicketService {
@@ -30,7 +30,7 @@ export class TicketService {
 
         console.log('fetching bugs from server');
 
-        const useMockData = true;
+        const useMockData = false;
 
         if (useMockData) {
             // random delay between 300ms and 2000ms to better mimic network latency
