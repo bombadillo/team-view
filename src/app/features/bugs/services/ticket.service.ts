@@ -30,7 +30,7 @@ export class TicketService {
 
         console.log('fetching bugs from server');
 
-        const useMockData = false;
+        const useMockData = true;
 
         if (useMockData) {
             // random delay between 300ms and 2000ms to better mimic network latency
