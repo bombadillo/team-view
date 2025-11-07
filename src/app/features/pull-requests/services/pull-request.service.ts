@@ -5,7 +5,11 @@ import { PullRequestPortFactoryService } from './ports/pull-request-port-factory
 
 @Injectable({ providedIn: 'root' })
 export class PullRequestService {
-    constructor(private store: PullRequestStore, @Inject('MOCK_DATA') private mockData: boolean, private pullRequestPortFactory: PullRequestPortFactoryService) {}
+    constructor(
+        private store: PullRequestStore,
+        @Inject('MOCK_DATA') private mockData: boolean,
+        private pullRequestPortFactory: PullRequestPortFactoryService,
+    ) {}
 
     sendingRequest: boolean = false;
 
@@ -26,6 +30,8 @@ export class PullRequestService {
         }
 
         console.log('fetching pull requests from server');
+
+        console.log(this.mockData);
 
         if (this.mockData) {
             // random delay between 300ms and 2000ms to better mimic network latency

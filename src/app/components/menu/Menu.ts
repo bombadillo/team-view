@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { Menubar } from 'primeng/menubar';
-import { TicketService } from '../../../features/bugs/services/ticket.service';
-import { PullRequestService } from '../../../features/pull-requests/services/pull-request.service';
+import { TicketService } from '../../features/bugs/services/ticket.service';
+import { PullRequestService } from '../../features/pull-requests/services/pull-request.service';
 
 @Component({
     selector: 'app-menu',
@@ -20,6 +20,15 @@ export class AppMenu implements OnInit {
             {
                 label: 'Refresh',
                 command: () => this.refresh(),
+                
+            },
+            {
+                label: 'Bugs',
+                routerLink: '/'
+            },            
+            {
+                label: 'Pull Requests',                
+                routerLink: 'pull-requests'
             },
         ];
     }

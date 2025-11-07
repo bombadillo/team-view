@@ -10,9 +10,7 @@ export class AzureDevopsPullRequestPort implements PullRequestPort {
     // Implements PullRequestPort
     constructor(
         private http: HttpClient,
-        @Inject('DEVOPS_PAT') private devopsPat: string,
-        @Inject('DEVOPS_ORG') private devopsOrg: string,
-        @Inject('DEVOPS_PROJECT') private devopsProject: string
+        @Inject('DEVOPS_CONFIG') private devopsConfig: any
     ) {}
 
     async getPullRequests(): Promise<PullRequest[]> {
@@ -24,11 +22,11 @@ export class AzureDevopsPullRequestPort implements PullRequestPort {
         }
 
         const endpoint =
-            `https://dev.azure.com/${this.devopsOrg}/${this.devopsProject}/_apis/git/pullrequests?` +
+            `https://dev.azure.com/${this.devopsConfig.org}/${this.devopsConfig.project}/_apis/git/pullrequests?` +
             'searchCriteria.status=completed' +
             '&$top=1000';
         const username = 'basic';
-        const password = this.devopsPat;
+        const password = this.devopsConfig.pat;
         const authHeader = 'Basic ' + btoa(`${username}:${password}`);
         const response: AzureDevOpsODataResponse = (await firstValueFrom(
             this.http.get(endpoint, {

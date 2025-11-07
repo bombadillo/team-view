@@ -15,7 +15,7 @@ const seed: PullRequest[] = [
             url: 'https://dev.azure.com/org/_users/1',
             id: 'user-001',
             uniqueName: 'sarah.chen@company.com',
-            imageUrl: 'https://dev.azure.com/org/_users/1/avatar',
+            imageUrl: 'https://avatar.iran.liara.run/public',
         },
         creationDate: '2025-10-20T10:15:00Z',
         closedDate: '2025-10-21T12:00:00Z',
@@ -38,7 +38,7 @@ const seed: PullRequest[] = [
             url: 'https://dev.azure.com/org/_users/2',
             id: 'user-002',
             uniqueName: 'john.smith@company.com',
-            imageUrl: 'https://dev.azure.com/org/_users/2/avatar',
+            imageUrl: 'https://avatar.iran.liara.run/public',
         },
         creationDate: '2025-10-22T09:00:00Z',
         closedDate: '',
@@ -61,7 +61,7 @@ const seed: PullRequest[] = [
             url: 'https://dev.azure.com/org/_users/3',
             id: 'user-003',
             uniqueName: 'emily.davis@company.com',
-            imageUrl: 'https://dev.azure.com/org/_users/3/avatar',
+            imageUrl: 'https://avatar.iran.liara.run/public',
         },
         creationDate: '2025-10-18T14:30:00Z',
         closedDate: '2025-10-19T08:00:00Z',
@@ -116,7 +116,7 @@ function makeUser(idx: number): User {
         url: `https://dev.azure.com/org/_users/${idx + 1}`,
         id: `user-${(idx % userNames.length) + 1}`,
         uniqueName: user.uniqueName,
-        imageUrl: `https://dev.azure.com/org/_users/${idx + 1}/avatar`,
+        imageUrl: 'https://avatar.iran.liara.run/public',
     };
 }
 

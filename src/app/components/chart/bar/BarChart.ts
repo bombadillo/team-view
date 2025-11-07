@@ -21,6 +21,7 @@ export class AppBarChart {
     constructor(private cd: ChangeDetectorRef) {
         effect(() => {
             const metrics = this.metrics();
+            console.log(metrics)
             if (metrics) this.initChart(metrics);
         });
     }

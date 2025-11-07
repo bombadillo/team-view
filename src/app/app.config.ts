@@ -27,11 +27,9 @@ export const appConfig: ApplicationConfig = {
                 org: '',
                 project: '',
                 pat: '',
+                analyticsPat: '',
             },
         },
-        { provide: 'DEVOPS_ORG', useValue: '' },
-        { provide: 'DEVOPS_PROJECT', useValue: '' },
-        { provide: 'DEVOPS_PAT', useValue: '' },
-        { provide: 'MOCK_DATA', useValue: false },
+        { provide: 'MOCK_DATA', useValue: true },
     ],
 };
