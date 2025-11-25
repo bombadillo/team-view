@@ -1,0 +1,39 @@
+@if (loading()) {
+<div class="flex items-center justify-center py-8">
+    <p-progress-spinner
+        strokeWidth="8"
+        fill="transparent"
+        animationDuration=".5s"
+        [style]="{ width: '50px', height: '50px' }"
+    />
+</div>
+} @else {
+<div class="space-y-4">
+    @for (ticket of tickets(); track ticket.id) {
+    <div class="p-4 border rounded-lg hover:bg-gray-50">
+        <div class="flex justify-between items-start mb-2">
+            <h3 class="font-medium">{{ ticket.title }}</h3>
+            <span
+                [class]="
+                    'px-2 py-1 text-sm rounded-full ' +
+                    (ticket.status === 'New'
+                        ? 'bg-red-100 text-red-800'
+                        : ticket.status === 'Approved'
+                        ? 'bg-orange-100 text-orange-800'
+                        : ticket.status === 'Committed'
+                        ? 'bg-yellow-100 text-yellow-800'
+                        : ticket.status === 'InTesting'
+                        ? 'bg-pink-100 text-pink-800'
+                        : ticket.status === 'InUAT'
+                        ? 'bg-pink-100 text-pink-800'
+                        : 'bg-green-100 text-green-800')
+                "
+            >
+                {{ ticket.status }}
+            </span>
+        </div>
+        <p class="text-sm text-gray-600 mb-2">{{ ticket.description }}</p>
+    </div>
+    }
+</div>
+}

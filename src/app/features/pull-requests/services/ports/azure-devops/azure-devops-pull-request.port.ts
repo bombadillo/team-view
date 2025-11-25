@@ -13,9 +13,9 @@ export class AzureDevopsPullRequestPort implements PullRequestPort {
         @Inject('DEVOPS_CONFIG') private devopsConfig: any
     ) {}
 
-    async getPullRequests(): Promise<PullRequest[]> {
+    async getPullRequests(force: boolean): Promise<PullRequest[]> {
         const cachedPullRequests = localStorage.getItem('devopsPullRequestResponse');
-        if (cachedPullRequests) {
+        if (cachedPullRequests && !force) {
             console.log('returning cached pullRequests');
 
             return this.mapResponse(JSON.parse(cachedPullRequests));
@@ -24,7 +24,7 @@ export class AzureDevopsPullRequestPort implements PullRequestPort {
         const endpoint =
             `https://dev.azure.com/${this.devopsConfig.org}/${this.devopsConfig.project}/_apis/git/pullrequests?` +
             'searchCriteria.status=completed' +
-            '&$top=1000';
+            '&$top=10';
         const username = 'basic';
         const password = this.devopsConfig.pat;
         const authHeader = 'Basic ' + btoa(`${username}:${password}`);

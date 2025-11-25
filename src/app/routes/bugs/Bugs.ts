@@ -8,7 +8,7 @@ import { PullRequestMetrics } from "../../features/pull-requests/pull-request-me
 @Component({
     selector: 'app-bugs',
     templateUrl: './bugs.html',
-    imports: [ChartModule, AppBugMetrics, AppBugTickets, PullRequestMetrics]
+    imports: [ChartModule, AppBugMetrics, AppBugTickets]
 })
 export class AppBugs {
 

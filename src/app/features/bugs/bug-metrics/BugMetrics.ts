@@ -1,10 +1,10 @@
 import { Component, computed, Signal, signal } from '@angular/core';
 import { AppBarChart } from '../../../components/chart/bar/BarChart';
 import { AppPolarChart } from '../../../components/chart/polar/PolarChart';
-import { TicketStore } from '../services/ticket-store.service';
+import { TicketStore } from '../services/bug-ticket-store.service';
 import { BugTicket } from '../models/BugTicket';
 import { ProgressSpinner } from 'primeng/progressspinner';
-import { TicketService } from '../services/ticket.service';
+import { BugTicketService } from '../services/bug-ticket.service';
 
 @Component({
     selector: 'app-bug-metrics',
@@ -24,7 +24,7 @@ export class AppBugMetrics {
 
     bugsPerTeamMetrics: Signal<AppMetricMeta> = computed(() => this.getBugsPerTeam());
 
-    constructor(private ticketService: TicketService, private ticketStore: TicketStore) {
+    constructor(private ticketService: BugTicketService, private ticketStore: TicketStore) {
         this.bugTickets = this.ticketStore.tickets;
 
         this.ticketService.fetchTickets().then(() => {

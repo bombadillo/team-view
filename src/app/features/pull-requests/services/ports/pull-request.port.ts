@@ -1,5 +1,5 @@
 import { PullRequest } from "../../models/PullRequest";
 
 export interface PullRequestPort {
-    getPullRequests(): Promise<PullRequest[]>;
+    getPullRequests(force: boolean): Promise<PullRequest[]>;
 }

@@ -1,10 +1,10 @@
 import { Inject, Injectable } from '@angular/core';
 import { mockTickets } from '../mock/tickets';
-import { TicketStore } from './ticket-store.service';
+import { TicketStore } from './bug-ticket-store.service';
 import { BugPortFactoryService } from './ports/bug-port-factory.service';
 
 @Injectable({ providedIn: 'root' })
-export class TicketService {
+export class BugTicketService {
     sendingRequest: boolean = false;
 
     /**

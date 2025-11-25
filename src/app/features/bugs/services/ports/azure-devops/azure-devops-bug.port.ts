@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
 import { AzureDevOpsWorkItem } from './AzureDevOpsWorkItem';
 import { AzureDevOpsODataResponse } from './AzureDevOpsODataResponse';
-import { AzureDeveopsTeamsPort } from './azure-devops-teams.port';
+import { AzureDevOpsTeamsPort } from './azure-devops-teams.port';
 import { BugTicket } from '../../../models/BugTicket';
 
 @Injectable({ providedIn: 'root' })
@@ -12,7 +12,7 @@ export class AzureDevopsBugPort implements BugPort {
     // Implements BugPort
     constructor(
         private http: HttpClient,
-        private azureDevOpsTeamsPort: AzureDeveopsTeamsPort,
+        private azureDevOpsTeamsPort: AzureDevOpsTeamsPort,
         @Inject('DEVOPS_CONFIG') private devopsConfig: any
     ) {}
 
@@ -29,7 +29,7 @@ export class AzureDevopsBugPort implements BugPort {
         const endpoint =
             `https://analytics.dev.azure.com/${this.devopsConfig.org}/${this.devopsConfig.project}/_odata/v3.0-preview/WorkItems?` +
             '$select=WorkItemId,Title,WorkItemType,State,FoundIn,CreatedDate,AreaSK,CreatedDateSK' +
-            "&$filter=WorkItemType eq 'Bug' and CreatedDateSK gt 20250101" +
+            "&$filter=WorkItemType eq 'Bug' and CreatedDateSK gt 20251117" +
             '&$orderby=CreatedDate desc' +
             '&$top=1000';
         const username = 'basic';

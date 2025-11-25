@@ -1,3 +1,4 @@
 <div class="card">
     <p-menubar [model]="items" />
+    <app-filter-menu (filterUpdated)="refresh()" />
 </div>

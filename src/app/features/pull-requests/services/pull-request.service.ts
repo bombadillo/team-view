@@ -24,15 +24,6 @@ export class PullRequestService {
             });
         }
 
-        if (this.store.pullRequests().length && !force) {
-            console.log('using cached pullRequests');
-            return new Promise((resolve) => resolve(true));
-        }
-
-        console.log('fetching pull requests from server');
-
-        console.log(this.mockData);
-
         if (this.mockData) {
             // random delay between 300ms and 2000ms to better mimic network latency
             const min = 300;
@@ -54,7 +45,7 @@ export class PullRequestService {
         }
 
         const pullRequestPort = await this.pullRequestPortFactory.getPort();
-        const pullRequestTickets = await pullRequestPort.getPullRequests();
+        const pullRequestTickets = await pullRequestPort.getPullRequests(force);
 
         this.store.setPullRequests(pullRequestTickets);
         this.sendingRequest = false;
