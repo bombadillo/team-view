@@ -4,19 +4,24 @@ import { Menubar } from 'primeng/menubar';
 import { BugTicketService } from '../../features/bugs/services/bug-ticket.service';
 import { PullRequestService } from '../../features/pull-requests/services/pull-request.service';
 import { TicketService } from '../../features/tickets/services/ticket.service';
-import { FilterMenu } from "../../features/filters/filter-menu/FilterMenu";
+import { RepositoryService } from '../../features/repositories/services/repository.service';
+import { GlobalStore } from '../../services/global-store.service';
 
 @Component({
     selector: 'app-menu',
     templateUrl: './menu.html',
     standalone: true,
-    imports: [Menubar, FilterMenu],
+    imports: [Menubar],
 })
 export class AppMenu implements OnInit {
     items: MenuItem[] | undefined;
 
-    constructor(private bugTicketService: BugTicketService, private pullRequestService: PullRequestService, 
-        private ticketService: TicketService
+    constructor(
+        private bugTicketService: BugTicketService,
+        private pullRequestService: PullRequestService,
+        private ticketService: TicketService,
+        private repositoryService: RepositoryService,
+        private globalStore: GlobalStore,
     ) {}
 
     ngOnInit() {
@@ -24,28 +29,34 @@ export class AppMenu implements OnInit {
             {
                 label: 'Refresh',
                 command: () => this.refresh(),
-                
             },
             {
                 label: 'Bugs',
-                routerLink: '/'
-            }, 
+                routerLink: '/',
+            },
             {
                 label: 'Tickets',
-                routerLink: '/tickets'
-            },            
+                routerLink: '/tickets',
+            },
             {
-                label: 'Pull Requests',                
-                routerLink: 'pull-requests'
+                label: 'Pull Requests',
+                routerLink: 'pull-requests',
+            },
+            {
+                label: 'Code',
+                routerLink: 'code',
             },
         ];
     }
 
     refresh() {
         // Do we move this to a more global state refresh service?
-        console.log('fetch');
-        this.bugTicketService.fetchTickets(true);
-        this.ticketService.fetchTickets(true);
-        this.pullRequestService.fetchPullRequests(true);
+        console.log('trigger cache refresh');
+        // this.bugTicketService.fetchTickets(true);
+        // this.ticketService.fetchTickets(true);
+        // this.pullRequestService.fetchPullRequests(true);
+        // this.repositoryService.fetchRepositories(true);
+
+        this.globalStore.triggerRefresh();
     }
 }

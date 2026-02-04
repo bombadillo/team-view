@@ -12,6 +12,7 @@ export class FilterStore {
 
         console.log(time)
 
+        // why a promise?
         Promise.resolve().then(() => {
             this.addFilter({ time });
         });

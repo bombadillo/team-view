@@ -19,27 +19,26 @@ export class TicketService {
         @Inject('MOCK_DATA') private mockData: boolean
     ) {
         effect(async () => {
-            if (this.store.tickets().length) {
-                console.log('loading revisions!!!2');
-                // maybe store an array here and update store in one go?
-                const revisions = [] as any;
-                await Promise.all(
-                    this.store
-                        .tickets()
-                        .map(async (ticket) => {
-                            const ticketRevisions = await this.fetchTicketRevisions(+ticket.id, this.force);
-                            revisions[+ticket.id] = ticketRevisions
-                            const percentMapped = this.store.tickets().length > 0 ? (Object.keys(revisions).length / this.store.tickets().length) * 100 : 0
-                            this.store.setTicketRevisionProcessingPercentage(percentMapped);
-                        })
-                );
-                
-                // Fix the above code to remove the need for this
-                if (this.mockData)
-                    this.store.setTicketRevisionProcessingPercentage(100);
+            if (!this.store.tickets().length) return;
+            console.log('loading revisions!!!2');
+            // maybe store an array here and update store in one go?
+            const revisions = [] as any;
+            await Promise.all(
+                this.store.tickets().map(async (ticket) => {
+                    const ticketRevisions = await this.fetchTicketRevisions(+ticket.id, this.force);
+                    revisions[+ticket.id] = ticketRevisions;
+                    const percentMapped =
+                        this.store.tickets().length > 0
+                            ? (Object.keys(revisions).length / this.store.tickets().length) * 100
+                            : 0;
+                    this.store.setTicketRevisionProcessingPercentage(percentMapped);
+                })
+            );
 
-                this.store.setTicketRevisions(revisions);
-            }
+            // Fix the above code to remove the need for this
+            if (this.mockData) this.store.setTicketRevisionProcessingPercentage(100);
+
+            this.store.setTicketRevisions(revisions);
         });
     }
 

@@ -43,9 +43,8 @@ export class AppTicketMetrics {
             if (this.ticketRevisions()) {
                 console.log('get user stats');
                 const statsPerUser = await this.getTicketsPerUser();
-                console.log(statsPerUser)
                 this.ticketsPerUserMetrics.set(statsPerUser);
-            } else console.log('boo hoo');
+            } 
         });
     }
 

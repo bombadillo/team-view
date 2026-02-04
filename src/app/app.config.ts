@@ -30,6 +30,6 @@ export const appConfig: ApplicationConfig = {
                 analyticsPat: '',
             },
         },
-        { provide: 'MOCK_DATA', useValue: true },
+        { provide: 'MOCK_DATA', useValue: false },
     ],
 };

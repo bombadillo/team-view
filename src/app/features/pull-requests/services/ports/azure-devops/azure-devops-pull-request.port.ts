@@ -34,8 +34,6 @@ export class AzureDevopsPullRequestPort implements PullRequestPort {
             })
         )) as AzureDevOpsODataResponse;
 
-        console.log(response);
-
         localStorage.setItem('devopsPullRequestResponse', JSON.stringify(response.value));
 
         return this.mapResponse(response.value)
@@ -58,8 +56,6 @@ export class AzureDevopsPullRequestPort implements PullRequestPort {
                 url: azurePullRequest.url,
             } as PullRequest;
         });
-
-        console.log(pullRequests);
 
         return pullRequests;
     }

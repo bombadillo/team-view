@@ -30,7 +30,6 @@ export class PullRequestMetrics {
     }
 
     getPullRequestsPerRepository(): AppMetricMeta {
-        console.log(this.pullRequests());
         const labels: string[] = [];
 
         this.pullRequests().map((pullRequest) => {

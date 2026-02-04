@@ -85,6 +85,7 @@ export class AzureDevopsTicketPort implements TicketPort {
         return tickets;
     }
 
+    // TODO: does this move to the factory?
     async getTicketRevisions(workItemId: number, force: boolean = false): Promise<Ticket[]> {
         const ticketRevisions = await this.azureDevOpsTicketRevisionsPort.getTicketRevisions(
             workItemId,

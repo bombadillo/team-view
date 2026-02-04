@@ -33,7 +33,6 @@ export class AzureDevOpsTicketRevisionsPort {
             : {};
 
         if (cachedTicketRevisions[workItemId] && !force) {
-            console.log('returning cached ticket revisions', cachedTicketRevisions[workItemId]);
             return this.mapResponse(cachedTicketRevisions[workItemId]);
         }
 
@@ -85,7 +84,6 @@ export class AzureDevOpsTicketRevisionsPort {
                         const cachedResponses = cachedResponsesString
                             ? JSON.parse(cachedResponsesString)
                             : {};
-                        console.log(cachedResponses);
 
                         cachedResponses[workItemId] = response.value;
 

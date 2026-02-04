@@ -36,7 +36,6 @@ export class PullRequestService {
                         Math.floor(Math.random() * (mockPullRequests.length - 40 + 1)) + 40;
                     const shuffled = [...mockPullRequests].sort(() => Math.random() - 0.5);
                     const randomSubset = shuffled.slice(0, randomCount);
-                    console.log(randomSubset);
                     this.store.setPullRequests(randomSubset);
                     this.sendingRequest = false;
                     resolve(true);

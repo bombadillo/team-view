@@ -24,8 +24,6 @@ export class AzureDevopsBugPort implements BugPort {
             return this.mapResponse(JSON.parse(cachedBugs));
         }
 
-        console.log(this.devopsConfig)
-
         const endpoint =
             `https://analytics.dev.azure.com/${this.devopsConfig.org}/${this.devopsConfig.project}/_odata/v3.0-preview/WorkItems?` +
             '$select=WorkItemId,Title,WorkItemType,State,FoundIn,CreatedDate,AreaSK,CreatedDateSK' +
